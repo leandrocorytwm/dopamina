@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">dopamina</string>
+    <string name="title_activity_main">dopamina</string>
+    <string name="package_name">com.dopamina.app</string>
+    <string name="custom_url_scheme">com.dopamina.app</string>
+</resources>

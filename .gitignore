@@ -2,3 +2,12 @@ node_modules/
 .scores.json
 *.log
 .DS_Store
+# build artifacts / binaries
+cloudflared.exe
+dopamina-render.zip
+android/build/
+android/.gradle/
+android/app/build/
+www/
+# signing key - NUNCA versionar
+dopamina-release.keystore
