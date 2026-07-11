@@ -1,0 +1,23 @@
+# Deploy no Render (GRÁTIS, leva 2 minutos)
+# 1. Crie conta em https://render.com (pode usar GitHub ou Google)
+# 2. Crie um "New Web Service"
+# 3. Conecte o repo do GitHub OU use "Deploy from filesystem" / upload zip
+# 4. Config:
+#      Runtime: Node
+#      Build Command: (deixe vazio)
+#      Start Command: node server.js
+#      Instance Type: Free
+# 5. Deploy. O Render dá uma URL tipo https://dopamina.onrender.com
+# 6. Pronto! O ranking global já funciona porque o próprio server.js serve o jogo + a API.
+#
+# IMPORTANTE: o free tier "dorme" após 15 min sem uso (cold start ~10-30s na 1a requisição).
+# Para nunca dormir, use o Render "Starter" (pago) OU um UptimeRobot (grátis) pingando a URL.
+
+services:
+  - type: web
+    name: dopamina
+    runtime: node
+    plan: free
+    buildCommand: ""
+    startCommand: node server.js
+    healthCheckPath: /

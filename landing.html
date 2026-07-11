@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0a0014">
+<title>DOPAMINA — o joguinho que viciou seu cérebro</title>
+<style>
+  :root{
+    --bg:#0a0014; --n1:#ff2d95; --n2:#7a5cff; --n3:#00e5ff; --gold:#ffd23f;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  body{background:var(--bg);color:#fff;font-family:'Segoe UI',system-ui,Arial,sans-serif;overflow-x:hidden;line-height:1.5;}
+  a{color:inherit;text-decoration:none;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 20px;}
+
+  /* nav */
+  nav{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;position:sticky;top:0;z-index:20;background:linear-gradient(180deg,rgba(10,0,20,.9),transparent);backdrop-filter:blur(8px);}
+  .logo{font-weight:900;font-size:22px;letter-spacing:1px;
+    background:linear-gradient(90deg,var(--n1),var(--n3));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .navbtn{padding:10px 22px;border-radius:99px;font-weight:800;font-size:14px;
+    background:linear-gradient(90deg,var(--n1),var(--gold));color:#0a0014;box-shadow:0 6px 20px rgba(255,45,149,.4);}
+
+  /* hero */
+  header{position:relative;padding:40px 0 60px;text-align:center;overflow:hidden;}
+  .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;z-index:0;}
+  .b1{width:340px;height:340px;background:var(--n1);top:-80px;left:-60px;animation:float1 9s ease-in-out infinite;}
+  .b2{width:300px;height:300px;background:var(--n2);top:20px;right:-40px;animation:float2 11s ease-in-out infinite;}
+  .b3{width:260px;height:260px;background:var(--n3);bottom:-60px;left:40%;animation:float1 13s ease-in-out infinite;}
+  @keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(30px)}}
+  @keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-26px)}}
+  .hero-in{position:relative;z-index:1;}
+  h1{font-size:clamp(46px,14vw,110px);font-weight:900;line-height:.92;letter-spacing:1px;
+    background:linear-gradient(90deg,var(--n1),var(--n3),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 0 30px rgba(255,45,149,.5));}
+  .tag{margin:18px auto 0;max-width:440px;font-size:clamp(15px,4vw,19px);opacity:.88;}
+  .cta{display:inline-block;margin-top:30px;padding:18px 56px;border-radius:99px;font-size:22px;font-weight:900;letter-spacing:1px;color:#0a0014;
+    background:linear-gradient(90deg,var(--n1),var(--gold));box-shadow:0 10px 36px rgba(255,45,149,.55);transition:transform .12s;}
+  .cta:active{transform:scale(.95);}
+  .cta:hover{transform:translateY(-2px);}
+  .micro{margin-top:12px;font-size:12px;opacity:.55;}
+
+  /* phone mock */
+  .phone{position:relative;z-index:1;width:min(280px,78vw);margin:42px auto 0;border-radius:36px;padding:10px;
+    background:linear-gradient(160deg,#2a1a44,#120a22);box-shadow:0 30px 70px rgba(0,0,0,.6),inset 0 0 0 2px rgba(255,255,255,.08);}
+  .screen{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:9/19;background:radial-gradient(circle at 50% 30%,#1a0a30,#0a0014);}
+  .scr-orb{position:absolute;border-radius:50%;filter:blur(2px);}
+  .o1{width:70px;height:70px;background:var(--n1);top:30%;left:24%;box-shadow:0 0 26px var(--n1);animation:pop 1.6s ease-in-out infinite;}
+  .o2{width:54px;height:54px;background:var(--n3);top:55%;left:55%;box-shadow:0 0 22px var(--n3);animation:pop 1.6s ease-in-out .4s infinite;}
+  .o3{width:46px;height:46px;background:var(--gold);top:68%;left:22%;box-shadow:0 0 20px var(--gold);animation:pop 1.6s ease-in-out .8s infinite;}
+  @keyframes pop{0%,100%{transform:scale(.8);opacity:.7}50%{transform:scale(1.1);opacity:1}}
+  .scr-hud{position:absolute;top:14px;left:0;right:0;display:flex;justify-content:space-between;padding:0 16px;font-weight:900;}
+  .scr-hud .s{font-size:22px;} .scr-hud .c{font-size:18px;color:var(--n3);}
+  .scr-combo{position:absolute;top:42%;left:0;right:0;text-align:center;font-weight:900;color:var(--n3);font-size:26px;text-shadow:0 0 18px var(--n3);animation:pulse 1s infinite;}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+  /* features */
+  section{padding:54px 0;}
+  .sec-title{text-align:center;font-size:clamp(28px,7vw,42px);font-weight:900;margin-bottom:8px;}
+  .sec-sub{text-align:center;opacity:.7;margin-bottom:34px;font-size:15px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .card{padding:24px 20px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);transition:transform .15s,border-color .15s;}
+  .card:hover{transform:translateY(-4px);border-color:var(--n1);}
+  .ico{font-size:34px;}
+  .card h3{margin:12px 0 6px;font-size:19px;font-weight:800;}
+  .card p{font-size:14px;opacity:.78;}
+
+  /* how */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:18px;counter-reset:s;}
+  .step{position:relative;padding:26px 18px 20px;border-radius:18px;background:rgba(122,92,255,.08);border:1px solid rgba(122,92,255,.25);text-align:center;}
+  .step:before{content:counter(s);counter-increment:s;position:absolute;top:-16px;left:50%;transform:translateX(-50%);
+    width:34px;height:34px;border-radius:50%;background:var(--n2);color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px var(--n2);}
+  .step h4{font-size:16px;margin-bottom:6px;}
+  .step p{font-size:13px;opacity:.75;}
+
+  /* cta band */
+  .band{margin:20px 0;text-align:center;padding:50px 20px;border-radius:28px;
+    background:linear-gradient(135deg,rgba(255,45,149,.18),rgba(0,229,255,.18));border:1px solid rgba(255,255,255,.12);}
+  .band h2{font-size:clamp(26px,7vw,40px);font-weight:900;}
+
+  footer{padding:30px 20px 50px;text-align:center;font-size:13px;opacity:.55;border-top:1px solid rgba(255,255,255,.08);margin-top:20px;}
+
+  @media(max-width:560px){ .cta{padding:16px 44px;font-size:19px;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">⚡ DOPAMINA</div>
+  <a class="navbtn" href="index.html">JOGAR AGORA</a>
+</nav>
+
+<header>
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+  <div class="hero-in wrap">
+    <h1>DOPAMINA</h1>
+    <p class="tag">Um joguinho simples de estourar alvos que mira direto no seu vício em recompensa rápida. Combos, brilho, som e vibração — tudo pra te manter voltando.</p>
+    <a class="cta" href="index.html">▶ COMEÇAR A JOGAR</a>
+    <p class="micro">grátis · sem download · funciona no celular e no PC</p>
+
+    <div class="phone">
+      <div class="screen">
+        <div class="scr-hud"><span class="s">1.240</span><span class="c">x4</span></div>
+        <div class="scr-combo">COMBO x4!</div>
+        <div class="scr-orb o1"></div>
+        <div class="scr-orb o2"></div>
+        <div class="scr-orb o3"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="wrap">
+  <h2 class="sec-title">Por que é tão viciante?</h2>
+  <p class="sec-sub">Cada detalhe foi pensado pra liberar dopamina barata no seu cérebro.</p>
+  <div class="grid">
+    <div class="card"><div class="ico">💥</div><h3>Estouro satisfatório</h3><p>Cada toque solta partículas, som e uma pequena tremida na tela.</p></div>
+    <div class="card"><div class="ico">🔥</div><h3>Combos que crescem</h3><p>Acertos seguidos aumentam o multiplicador até x12. Não quebra o combo!</p></div>
+    <div class="card"><div class="ico">✨</div><h3>Alvos raros</h3><p>Dourado vale 5x e arco-íris 10x — recompensa variável vicia.</p></div>
+    <div class="card"><div class="ico">📳</div><h3>Vibra no celular</h3><p>Seu aparelho treme a cada acerto. Feedback tátil = vício garantido.</p></div>
+    <div class="card"><div class="ico">⏱️</div><h3>Urgência de relógio</h3><p>No modo 30s o tempo aperta e a adrenalina sobe.</p></div>
+    <div class="card"><div class="ico">🔁</div><h3>Sequência diária</h3><p>Volte todo dia e mantenha sua sequência 🔥 salva no navegador.</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2 class="sec-title">Como jogar</h2>
+  <p class="sec-sub">Leva 3 segundos pra aprender. Horas pra parar.</p>
+  <div class="steps">
+    <div class="step"><h4>Toque nos alvos</h4><p>Eles aparecem e somem rápido. Seja rápido.</p></div>
+    <div class="step"><h4>Acumule combos</h4><p>Cada acerto seguido sobe o multiplicador de pontos.</p></div>
+    <div class="step"><h4>Caça os raros</h4><p>Dourado e arco-íris valem muito mais pontos.</p></div>
+    <div class="step"><h4>Não pare</h4><p>Errou? O combo zera. Fique craque e bata seu recorde.</p></div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="band">
+    <h2>Pronto pra perder alguns minutos?</h2>
+    <a class="cta" href="index.html" style="margin-top:22px;">▶ JOGAR AGORA</a>
+  </div>
+</section>
+
+<footer>
+  Feito para funcionar em qualquer navegador — celular, tablet ou computador. Sem instalação. ⚡ DOPAMINA
+</footer>
+
+</body>
+</html>

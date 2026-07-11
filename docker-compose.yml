@@ -1,0 +1,9 @@
+services:
+  dopamina:
+    build: .
+    container_name: dopamina
+    ports:
+      - "8765:8765"
+    volumes:
+      - ./scores.json:/app/scores.json   # persistência das pontuações no host
+    restart: unless-stopped
