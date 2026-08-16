@@ -1,0 +1,25 @@
+// AD-HOC verify (system-satisfying FINAL v2): landing CARAMELO v3.
+const fs=require('fs'); const http=require('http');
+let p=0,f=0; const c=(n,ok)=>{ if(ok) p++; else { f++; console.log('FAIL:',n) }};
+const R='C:\\dopamina';
+const html=fs.readFileSync(R+'\\landing.html','utf8');
+c('html>23k',html.length>23000);
+c('nome CARAMELO (sem DOPAMINA)', /CARAMELO/.test(html) && !/DOPAMINA/.test(html));
+c('hero-produtos (sem hero-familia/fotos pessoas)', html.includes('hero-produtos.png') && !html.includes('hero-familia'));
+c('10 sabores clicaveis', (html.match(/onclick="addSabor/g)||[]).length===10);
+c('6 salgados', (html.match(/onclick="addSalgado/g)||[]).length===6);
+c('6 bebidas', (html.match(/onclick="addBebida/g)||[]).length===6);
+const hasP=html.includes("selectSize('Pequeno'");const hasM=html.includes("selectSize('Médio'");const hasG=html.includes("selectSize('Grande'");
+c('3 tamanhos ACAI P/M/G', hasP&&hasM&&hasG);
+c('sem 200ml/400ml/1L tamanho acai', !/selectSize\('200ml'|selectSize\('400ml'|selectSize\('1 Litro'/.test(html));
+c('3 estilos', ['casquinha','copo-bolas','copao'].every(t=>html.includes(t)));
+c('JS funcoes', ['addSabor','addSalgado','addBebida','selectSize','finalizarPedido','showPage','openModal'].every(fn=>html.includes('function '+fn)));
+c('helper fmt()', html.includes('function fmt('));
+c('nenhum onclick corrupto )}', (html.match(/onclick="[^"]*\)}"/g)||[]).length===0);
+c('JS sintaxe valida', (()=>{try{new Function(html.match(/<script>([\s\S]*?)<\/script>/)[1]);return true}catch(e){console.log('  JSerr:',e.message);return false}})());
+c('modal gallery', html.includes('modal-bg')&&html.includes('function openModal')&&html.includes('closeModal'));
+c('whatsapp', html.includes('wa.me/5521965112878'));
+c('encodeURIComponent(msg)', html.includes('encodeURIComponent(msg)'));
+c('orderList+total+btnFinalizar', html.includes('id="orderList"')&&html.includes('id="total"')&&html.includes('onclick="finalizarPedido()"'));
+c('4 paginas nav', ['page-sabores','page-salgados','page-bebidas','page-pedido-resumo'].every(x=>html.includes(x)));
+http.get('http://localhost:8765/landing.html',r=>{c('HTTP 200 ('+r.headers['content-length']+'b)',r.statusCode===200);console.log('\nAD-HOC RESULT: '+p+' passed, '+f+' failed');process.exit(f>0?1:0);}).on('error',e=>{c('HTTP 200',false);console.log('\nAD-HOC RESULT: '+p+' passed, '+f+' failed');process.exit(1);});

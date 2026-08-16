@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07d364">
+  <title>Admin • LOJA DE SORVETE E AÇAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <script src="/editor.js" defer></script>
+  <style>
+    :root{ --green:#07d364; --pink:#ff2e9d; --dark:#222; --light:#fafafa; --border:#e0e0e0;}
+    *{margin:0;padding:0;box-sizing:border-box} body{font-family:'Montserrat',sans-serif;background:var(--light);color:var(--dark);line-height:1.5}
+    header{background:linear-gradient(135deg,#07d364,#12b886);color:#fff;padding:16px 24px;position:sticky;top:0;z-index:10}
+    header h1{font-size:22px;font-weight:900} .header-sub{font-size:13px;opacity:.9}
+    .wrap{max-width:1360px;margin:0 auto;padding:16px}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
+    .toolbar button,.toolbar label{background:#fff;border:2px solid var(--border);border-radius:12px;padding:10px 16px;font-size:14px;font-weight:700;cursor:pointer;transition:.2s}
+    .toolbar button:hover,.toolbar label:hover{border-color:var(--green);color:var(--green)}
+    .toolbar button.primary{background:var(--green);color:#fff;border-color:var(--green)}
+    .toolbar button.primary:hover{filter:brightness(1.1)}
+    #saved,#offline-badge{position:absolute;top:60px;right:20px;background:var(--green);color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:700;transition-opacity .3s}
+    #offline-badge{background:#ff9f1c}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+    .card{background:#fff;border:2px solid var(--border);border-radius:16px;padding:12px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .card input{border:1px solid var(--border);border-radius:8px;padding:6px 10px;font-size:14px;width:100%;margin:4px 0}
+    .card input:focus{outline:2px solid var(--green);border-color:var(--green)}
+    .card button{border:none;background:none;cursor:pointer;padding:4px 8px;font-size:16px}
+    .card button.rm{color:#ff6b6b}
+    .card .drag{cursor:move;font-size:18px;touch-action:none;user-select:none}
+    .section{background:#fff;border-radius:16px;padding:16px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .section h2{font-size:16px;border-bottom:2px dashed var(--border);padding-bottom:8px;margin-bottom:12px}
+    #gallery-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+    #gallery-list img{width:100%;height:80px;object-fit:cover;border-radius:8px;cursor:pointer;border:2px solid var(--border)}
+    #gallery-list button{width:28px;height:28px;font-size:12px}
+    #list-sabores,#list-salgados,#list-bebidas{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+    #list-sabores .card img,#list-salgados .card img,#list-bebidas .card img{width:100%;height:60px;object-fit:cover;border-radius:6px;margin:6px 0}
+    .card input.img-preview{max-height:60px}
+    .add-all{font-size:16px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🛠️ Admin • LOJA DE SORVETE E AÇAI</h1>
+    <div class="header-sub">Edite sabores, salgados, bebidas, tamanhos e WhatsApp • salva direto no site</div>
+    <div id="offline-badge" style="display:none">⚠ Offline (salvo localmente)</div>
+    <div id="saved" style="opacity:0">✓ Salvo!</div>
+  </header>
+  <main class="wrap">
+    <div class="toolbar">
+      <button class="primary" onclick="save()">💾 Salvar no site</button>
+      <button onclick="exportJson()">📥 Exportar JSON</button>
+      <label>📤 Importar JSON
+        <input type="file" accept=".json,application/json" onchange="importJson(this)" style="display:none">
+      </label>
+      <span style="margin-left:auto;font-size:13px;color:#666">📱 Abra no notebook/celular: <b>http://localhost:8765/admin.html</b></span>
+    </div>
+
+    <section class="section">
+      <h2>Loja + WhatsApp</h2>
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:8px">
+        <input id="store-edit" placeholder="Nome da loja" style="font-size:16px;padding:10px;border-radius:8px;border:2px solid var(--border)" oninput="editStore(this.value)" autofocus>
+        <input id="whatsapp-edit" placeholder="5521965112878" style="font-size:16px;padding:10px;border-radius:8px;border:2px solid var(--border)">
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>🍨 Galeria (fotos clicáveis)</h2>
+      <div id="gallery-list"></div>
+      <button class="add-all" onclick="addItem('gallery')">＋ Adicionar foto</button>
+    </section>
+
+    <section class="section">
+      <h2>🍦 Sabores de sorvete / açai (10 itens)</h2>
+      <div id="list-sabores"></div>
+      <button class="add-all" onclick="addItem('sabores')">＋ Novo sabor</button>
+    </section>
+
+    <section class="section">
+      <h2>🥣 Tamanhos (com ml)</h2>
+      <div id="list-sizes"></div>
+      <button class="add-all" onclick="addItem('sizes')">＋ Novo tamanho</button>
+    </section>
+
+    <section class="section">
+      <h2>🍦 Estilos de serviço</h2>
+      <div id="list-estilos"></div>
+      <button class="add-all" onclick="addItem('estilos')">＋ Novo estilo</button>
+    </section>
+
+    <section class="section">
+      <h2>🥟 Salgados</h2>
+      <div id="list-salgados"></div>
+      <button class="add-all" onclick="addItem('salgados')">＋ Novo salgado</button>
+    </section>
+
+    <section class="section">
+      <h2>🥤 Bebidas</h2>
+      <div id="list-bebidas"></div>
+      <button class="add-all" onclick="addItem('bebidas')">＋ Nova bebida</button>
+    </section>
+
+    <section class="section" style="background:#fff3cd;border-color:#ffe8a3">
+      <h2>📱 Como funciona</h2>
+      <p>1. Edite aqui → 2. Clique "Salvar no site" → 3. Abra <b>http://localhost:8765/landing.html</b> que tá tudo atualizado</p>
+      <p>Quer usar no notebook? Conecte na mesma rede WiFi e acesse <b>http://[seu-ip]:8765/admin.html</b></p>
+    </section>
+  </main>
+</body>
+</html>

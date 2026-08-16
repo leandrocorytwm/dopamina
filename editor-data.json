@@ -1,0 +1,47 @@
+{
+  "store": "LOJA DE SORVETE E AÇ AI",
+  "whatsapp": "5521965112878",
+  "hero": { "img": "/landing-assets/img/hero-produtos.png", "h1": "LOJA DE SORVETE E AÇ AI", "p": "Açai terra, sorvetes artesanais, salgados quentinhos e bebidas geladas. Peça pelo WhatsApp!" },
+  "gallery": [
+    {"img": "/landing-assets/img/acai-3-tamanhos.png", "alt": "Açai em 3 tamanhos"},
+    {"img": "/landing-assets/img/sorvetes.png", "alt": "Sorvetes artesanais"},
+    {"img": "/landing-assets/img/salgados.png", "alt": "Salgados"},
+    {"img": "/landing-assets/img/bebidas.png", "alt": "Bebidas geladas"},
+    {"img": "/landing-assets/img/sabores-10.png", "alt": "10 Sabores de sorvete"}
+  ],
+  "sabores": [
+    {"name": "Chocolate 50%", "price": "12,00", "img": "/landing-assets/img/sabor-chocolate.png"},
+    {"name": "Pistache", "price": "13,00", "img": "/landing-assets/img/sabor-pistache.png"},
+    {"name": "Creme de Leite", "price": "11,50", "img": "/landing-assets/img/sabor-creme.png"},
+    {"name": "Napolitano", "price": "14,00", "img": "/landing-assets/img/sabor-napolitano.png"},
+    {"name": "Morango", "price": "8,50", "img": "/landing-assets/img/sabores-10.png"},
+    {"name": "Maracaju", "price": "8,50", "img": "/landing-assets/img/sabores-10.png"},
+    {"name": "Menta", "price": "8,00", "img": "/landing-assets/img/sabores-10.png"},
+    {"name": "Doce de Leite", "price": "9,50", "img": "/landing-assets/img/sabores-10.png"},
+    {"name": "Limão", "price": "8,00", "img": "/landing-assets/img/sabores-10.png"},
+    {"name": "Abacaxi", "price": "8,50", "img": "/landing-assets/img/sabores-10.png"}
+  ],
+  "sizes": [
+    {"name": "Pequeno", "price": "8,00", "ml": "400ml"},
+    {"name": "Médio", "price": "13,00", "ml": "600ml"},
+    {"name": "Grande", "price": "19,00", "ml": "800ml"}
+  ],
+  "estilos": [{"name": "Casquinha"}, {"name": "Copo c/ Bolas"}, {"name": "Copão"}],
+  "salgados": [
+    {"name": "Coxinha", "price": "8,50", "tag": "frito", "icon": "🔥"},
+    {"name": "Pastel", "price": "10,00", "tag": "assado", "icon": "🌿"},
+    {"name": "Esfiha Carne", "price": "9,00", "tag": "assado", "icon": "🌿"},
+    {"name": "Esfiha Queijo", "price": "8,50", "tag": "assado", "icon": "🌿"},
+    {"name": "Pizza Calabresa", "price": "22,00", "tag": "assado", "icon": "🌿"},
+    {"name": "Risoto", "price": "11,00", "tag": "frito", "icon": "🔥"}
+  ],
+  "bebidas": [
+    {"name": "Coca-Cola", "price": "5,00", "size": "350ml"},
+    {"name": "Guaraná", "price": "5,00", "size": "350ml"},
+    {"name": "Sprite", "price": "5,00", "size": "350ml"},
+    {"name": "Fanta Laranja", "price": "5,00", "size": "350ml"},
+    {"name": "Água Mineral", "price": "2,50", "size": "500ml"},
+    {"name": "Suco Natural", "price": "6,00", "size": "500ml"}
+  ],
+  "footer": {"hours": "Seg–Dom: 10h–22h • Retirada ou entrega local"}
+}
